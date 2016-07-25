@@ -1,0 +1,33 @@
+body{
+background-color: aliceblue;
+}
+
+
+.mainContent{
+        margin-top: 5%;
+    margin-left: 40%;
+
+}
+
+header{
+
+    text-align: center;
+    background-color: #3F51B5;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    border-radius: 25px;
+    box-shadow: 5px 6px 10px #1EB5A0;
+    color: white;
+    border: 3px dashed #8DABEF;
+    text-shadow: 6px 4px 4px black;
+        margin-bottom: 20px;
+}
+
+
+
+
+.longcontent {width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        var openRequest;
+        var todo = {};
+        window.onload = function () {
+            openRequest = window.indexedDB.open('tempDb', 1);
+            openRequest.onupgradeneeded = function (e) {
+                console.log('Upgrade Needed!');
+                var db = e.target.result;
+                db.createObjectStore("list", { keyPath: "timeStamp" });
+            }
+            openRequest.onsuccess = function (e) {
+
+               todo.db= e.target.result;
+                console.log("Database opened");
+            }
+            openRequest.onerror = function () {
+                console.log("Something went wrong");
+            }
+
+        }
+        function fnAddItem() {
+            var item = document.getElementById("txtItem").value;
+            var category = document.getElementById("category").value;
+            var timeStamp = new Date().getTime();
+
+            var obj = new Object();
+            obj.item = item;
+            obj.category = category;
+            obj.timeStamp = timeStamp;
+
+            var transaction = todo.db.transaction(["list"], "readwrite");
+            var store = transaction.objectStore("list");
+            var request = store.put(obj);
+            request.onsuccess = function () {
+                console.log("Data is saved!");
+            }
+            request.onerror = function () {
+                console.log("Data could not be saved!!!");
+            }
+
+
+        }
+
+        function fnDisplayTodo() {
+            var transaction = todo.db.transaction(["list"], "readonly");
+            var store = transaction.objectStore("list");
+
+            var cursorRequest = store.openCursor();
+            cursorRequest.onsuccess = function (e) {
+                var result = e.target.result;
+                if (!result) {
+                    return;
+                }
+                console.log(result.value.item);
+                result.continue();
+
+            }
+
+            
+
+        }
+
+    </script>
+</head>
+<body>
+    <input type="text" placeholder="remember what?" id="txtItem" />
+    <select id="category">
+        <option>Personal</option>
+        <option>Work</option>
+    </select>
+    <button onclick="fnAddItem()" >Add Item</button>
+    <button onclick="fnDisplayTodo()">Show List</button>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Scope - Demo</title>
+    <style>
+        #divMessage{
+            color : red;
+            font-size: 18pt;
+        }
+    </style>
+    <script src="jquery-1.12.0.js"></script>
+    <script src="angular.min.js"></script>
+    <script>
+       
+       
+        
+        angular.injector(["ng"]).invoke(function($rootScope){
+            
+            $rootScope.greetobj = {};
+             $rootScope.greetobj.name = null;
+        $rootScope.greetobj.msg  = null;
+        $rootScope.greetobj.greet = function(){
+        $rootScope.greetobj.msg =  'Hi '+  $rootScope.greetobj.name +  ', Have a nice day!';
+        }
+           window.scope = $rootScope;
+        });
+        $(document).ready(function(){
+           // scope.name = '';
+           // scope.greetMsg = '';
+            $("#btnGreet").click(function(){
+                scope.$apply(function(){
+                   scope.greetobj.greet();
+                });
+            });
+            $("#txtName").change(function(){
+                var name = this.value;
+                scope.$apply(function(){
+                    scope.greetobj.name = name;
+                    
+                })
+            });
+            scope.$watch("greetobj.msg", function(newValue){
+                $("#divMessage").html(newValue);
+            });
+            scope.$watch("greetobj.name", function(newValue){
+                $("#txtName").val(newValue);
+            });
+        });
+
+    </script>
+</head>
+<body>
+<h1>Greeting App</h1>
+<hr>
+<label for="">Name :</label>
+<input type="text" name="" id="txtName">
+<input type="button" value="Greet" id="btnGreet">
+<div id="divMessage">[Message]</div>
+</body>
+</html>

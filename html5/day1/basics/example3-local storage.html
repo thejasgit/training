@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Main page</title>
+    
+     <script>
+   
+    window.onsubmit = function(){
+       // alert('working')
+   // console.log('hello');
+        
+        var name= document.getElementById("name").value;
+        var age= document.getElementById("age").age;
+        
+        var emp = new Object();
+        emp.name = name;
+        emp.age = age;
+        
+        localStorage.setItem(name,JSON.stringify(emp));
+        
+        
+        return false
+    }
+   
+    </script>
+    
+    <link href="style.css" rel="stylesheet">
+    
+    
+   
+    
+    <style>
+        input:valid{
+        background-color: lightgreen;
+        
+        }
+        input:invalid{
+        background-color: lightcoral;
+        
+        }
+        
+         input:invalid + .errorMsg{
+        visibility: visible;
+        
+        }
+        input:valid + .errorMsg{
+        visibility: hidden;
+        
+        }
+    
+    </style>
+    
+    
+
+</head>
+
+<body>
+    
+    
+   <form>
+       <div class="mainContent">
+        <h3>Enter Details</h3>
+    <div>
+       
+       <label>Name : </label>
+        <input id="name" type="text" title="Name is mandatory" placeholder="Thejas Kumar" autofocus required pattern = "[a-zA-Z]{3,20}"/>
+        <span class="errorMsg"> Minimum characters is 3</span>
+       </div>
+       <div>
+           <label>Age : </label>
+            <input id="age" type="number" title="Enter Age"  min="20" max="50" required />
+           <span class="errorMsg"> Min age is 3 & max is 50</span>
+       </div>
+       <div>
+           <label>DOB : </label>
+            <input type="date" title="Enter DOB" required />
+       </div>
+        <div>
+           <label>range : </label>
+            <input type="range" title="select range " min="1" max="30" value="8" required />
+       </div>
+       <div>
+           <label>secret Question :</label>
+           <input type="text" list="questions" />
+       <datalist id="questions">
+           <option>ques1 ?</option>
+           <option>ques2 ?</option>
+           <option>whats your first pet name?</option>
+           
+           </datalist>
+       </div>
+    <div>
+    <label>Email:</label>
+        <input type=email />
+    </div>
+       
+       <button type="submit">Post</button>
+           
+           </div>
+    </form>
+        
+</body>
+
+</html>

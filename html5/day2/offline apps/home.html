@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html manifest="offline.appcache">
+<head>
+    
+    <title>Home</title>
+    <script src="app.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="app.css">
+    <script>
+    
+    window.onload = function () {
+            window.applicationCache.onupdateready = function () {
+                if (window.applicationCache.status === window.applicationCache.UPDATEREADY) {
+                    if (confirm("A new version is available, load it?"))
+                    {
+                        window.location.reload();
+                    }
+                }
+ 
+            }
+ 
+        }
+    </script>
+    </head>
+    <body>
+    
+    <a href="about.html">About</a>
+        <h3>Home Page</h3>
+    <a href="transaction.html">transcation</a>
+    </body>
+</html>

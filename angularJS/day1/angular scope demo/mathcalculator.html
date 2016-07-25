@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Math Calculator</title>
+    <style>
+        .field{
+            margin-bottom: 10px;
+        }
+        #divResult{
+            color : red;
+            font-weight: bold;
+            font-size: 20pt;
+        }
+        label{
+            display: block;
+        }
+        body{
+            margin-left: 20px;
+        }
+    </style>
+    <script src="angular.min.js"></script>
+    <script>
+   
+    //Model
+    function MathCalculator(){
+        this.num1 = 0;
+        this.num2 = 0;
+        this.result = 0;
+        
+    }
+    MathCalculator.prototype.add = function(){
+        
+        this.result = this.num1 +this.num2;
+    }
+    MathCalculator.prototype.sub = function(){
+        
+        this.result = this.num1  - this.num2;
+    }
+    MathCalculator.prototype.multiply = function(){
+        
+        this.result = this.num1 * this.num2;
+    }
+    MathCalculator.prototype.divide = function(){
+        
+        this.result = this.num1 / this.num2;
+    }
+
+ 
+
+    angular.module("ng").run(function($rootScope){
+        $rootScope.calculator = new MathCalculator();
+    })
+
+    </script>
+</head>
+<body ng-app>
+    <h1>Calculator</h1>
+    <hr>
+    <div class="content">
+        <div class="field">
+        
+            <input type="number" name="" id="txtBasic" ng-model="calculator.num1">
+        </div>
+        <div class="field">
+            
+            <input type="number" name="" id="txtHra" ng-model="calculator.num2">
+        </div>
+       
+        
+        <div class="field">
+            <input type="button" value="add" id="btnCalculate" ng-click="calculator.add()">
+        </div>
+         <div class="field">
+            <input type="button" value="subtract" id="btnCalculate" ng-click="calculator.sub()">
+        </div>
+         <div class="field">
+            <input type="button" value="multiply" id="btnCalculate" ng-click="calculator.multiply()">
+        </div>
+         <div class="field">
+            <input type="button" value="divide" id="btnCalculate" ng-click="calculator.divide()">
+        </div>
+        <div class="field">
+            <div id="divResult" ng-bind="calculator.result">[Salary]</div>
+        </div>
+    </div>
+</body>
+</html>

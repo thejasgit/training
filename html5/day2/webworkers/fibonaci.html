@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        var results = [];
+        function doMath() {
+            var seriesLength = document.getElementById('seriesLength').value;
+            var log = document.getElementById('log');
+            log.innerHTML = "";
+            generateFibonacciSeries(seriesLength);
+            for (var i = 0; i < results.length; i++) {
+                log.innerHTML = log.innerHTML + "<li>" + results[i] + "</li>";
+            }
+
+        }
+        function generateFibonacciSeries(n) {
+            results.length = 0;
+            for (var i = 0; i < n - 1; i++) {
+                results.push(calculateNextFibonacciValue(i));
+            }
+        }
+        function calculateNextFibonacciValue(n) {
+            var s = 0, returnValue;
+            if (n == 0) {
+                return s;
+
+            }
+            if (n == 1) {
+                s += 1;
+                return s;
+
+            }
+            else {
+                return (calculateNextFibonacciValue(n - 1) + calculateNextFibonacciValue(n - 2))
+            }
+
+        }
+    </script>
+</head>
+<body>
+     <input type="number" value="10" id="seriesLength" />
+    <button onclick="doMath()" >Generate Series</button>
+    <img src="loader.gif" alt="" />
+    <ol id="log"></ol>
+</body>
+</html>

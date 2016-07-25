@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+     var socket;
+        
+        window.onload = function(){
+        
+        socket = new WebSocket("ws://echo.websocket.org");
+            socket.onopen = function(){
+            console.log("the connection is opened");
+            }
+            socket.onclose = function(){
+            console.log("the connection is closed");
+            }
+            
+            socket.onmessage = function(e){
+            console.log("The message is:" + e.data);
+            }
+            
+            socket.onerror = function(){
+            
+            console.log("something went wrong");
+            }
+        
+        }
+
+        function fnSend(){
+        
+        var msg =document.getElementById("msg").value;
+            if(socket.readyState == WebSocket.OPEN){
+            socket.send(msg);
+            }
+        
+        }
+        
+        function fnClose(){
+        
+        socket.close();
+        }
+        
+    </script>
+    
+    </head>
+    
+    <body>
+    <input type="text" id="msg"/> <button onclick="fnSend()">send</button><button onclick="fnClose()">Close</button>
+    
+    </body>
+</html>

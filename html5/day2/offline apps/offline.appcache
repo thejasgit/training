@@ -1,0 +1,12 @@
+CACHE MANIFEST
+#version 5
+CACHE:
+about.html
+app.js
+app.css
+
+NETWORK:
+*
+
+FALLBACK:
+transaction.html error.html

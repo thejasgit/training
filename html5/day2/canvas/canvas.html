@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html manifest="offline.appcache">
+<head>
+    
+    <title>Home</title>
+    <script src="app.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="app.css">
+    <script>
+        
+        var canvas,ctx;
+    function fnDraw(){
+     canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+        
+        ctx.moveTo(100,100);
+        ctx.lineTo(100,200);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "blue";
+        ctx.stroke();
+        ctx.strokeRect(100,210,100,100);
+        ctx.fillRect(100,210,100,100);
+        
+        
+        ctx.arc(350,100,50,0,2*Math.PI);
+        ctx.fillStyle="red";
+        
+        ctx.stroke();
+    
+    }
+        
+        function fnReset(){
+        canvas.width = canvas.width;
+        
+        }
+   
+    </script>
+    </head>
+    <body>
+    <button onClick="fnDraw()">Draw</button>
+         <button onClick="fnReset()">Reset</button>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>
+    Geo location</title>
+    
+    <script>
+    
+    function getLocation(){
+    
+    var options= new Object();
+        options.enableHighAccuracy= true;
+        options.timeout = 5000;
+        window.navigator.geolocation.getCurrentPosition(success,failure,options);
+    
+    
+    }
+    
+        function success(position){
+            
+            console.log(position);
+        }
+        
+        function failure(error){
+        console.log(error.message);
+        }
+        
+        
+    </script>
+    </head>
+    <body>
+    
+    <button onclick="getLocation()">get Location</button>
+    </body>
+
+</html>

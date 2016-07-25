@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <style>
+    
+        .box{
+        
+        height: 100px;
+            width: 100px;
+        }
+        @-webkit-keyframes blushing{
+            from{ background-color: red;
+                
+            }
+            to{
+                background-color: blue;
+                width: 200px;
+            }
+        }
+        
+        #div1{
+        -webkit-animation: blushing 4s infinite alternate;
+        }
+        
+        @-webkit-keyframes rotate{
+            0%{ background-color: red;
+                
+            }
+            50%{
+                background-color: yellow;
+            }
+            100%{
+            background-color: chartreuse;
+                -webkit-transform: scale(1.25) rotate(90deg);
+            }
+        }
+        
+         #div2{
+        -webkit-animation: rotate 4s infinite alternate;
+        }
+        
+        .center{
+        margin: 100px;
+        
+        }
+        
+    </style>
+    
+    </head>
+    
+<body>
+    <div class="center">
+    <div class="box" id="div1"></div>
+    <div class="box" id="div2"></div>
+    <div class="box" id="div3"></div>
+    <div class="box" id="div4"></div>
+    </div>
+    </body>
+</html>

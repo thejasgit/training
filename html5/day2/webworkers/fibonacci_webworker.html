@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        
+        function doMath() {
+            var seriesLength = document.getElementById('seriesLength').value;
+            var worker = new Worker('worker.js');
+            worker.postMessage(seriesLength);
+            worker.onmessage =messageHandler;
+            worker.onerror = errorHandler;
+            
+        }
+        
+        function messageHandler(e){
+        var log = document.getElementById('log');
+            log.innerHTML = "";
+            
+            for (var i = 0; i < e.data.length; i++) {
+                log.innerHTML = log.innerHTML + "<li>" + e.data[i] + "</li>";
+            }
+
+        
+        }
+        
+         function errorHandler(e){
+        console.log(e.message);
+        
+        }
+        
+
+        
+    </script>
+</head>
+<body>
+     <input type="number" value="10" id="seriesLength" />
+    <button onclick="doMath()" >Generate Series</button>
+    <img src="loader.gif" alt="" />
+    <ol id="log"></ol>
+</body>
+</html>

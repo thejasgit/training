@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        .adv {
+            position: fixed;
+            top: 25px;
+            background-color: white;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var video = document.getElementById("video"),
+
+                remainingTime = document.getElementById("remainingTime"),
+                totalTime = document.getElementById("totalTime"),
+                scrubber = document.getElementById("scrubber"),
+
+
+                playPause = document.getElementById("playPause"),
+                stop = document.getElementById("stop"),
+                begin = document.getElementById("begin"),
+                rewind = document.getElementById("rewind"),
+                fastForward = document.getElementById("fastForward"),
+                end = document.getElementById("end"),
+
+                volume = document.getElementById("volume"),
+                mute = document.getElementById("mute"),
+                playbackRate = document.getElementById("playbackRate");
+
+
+
+            formatTime = function (seconds) {
+                seconds = Math.round(seconds);
+                var minutes = 0;
+                if (seconds >= 60) {
+                    minutes = Math.floor(seconds / 60);
+                    seconds = (seconds - (minutes * 60));
+                }
+
+                seconds = seconds + '';
+                if (seconds.length == 1) {
+                    seconds = '0' + seconds;
+                }
+                return minutes + ":" + seconds;
+
+
+            }
+
+            playPause.onclick = function () {
+                //check if the video is playing or not
+                if (video.paused || video.ended) {
+                    video.play();
+                    playPause.innerText = "Pause";
+                }
+                else {
+                    video.pause();
+                    playPause.innerText = "Play";
+
+                }
+            }
+            stop.onclick = function () {
+                video.pause();
+                video.currentTime = 0;
+                playPause.innerText = "Play";
+            }
+
+            begin.onclick = function () {
+                video.currentTime = 0;
+            }
+            rewind.onclick = function () {
+                video.currentTime = video.currentTime - 5;
+            }
+            end.onclick = function () {
+                video.currentTime = video.duration;
+                playPause.innerText = "Play";
+            }
+            fastForward.onclick = function () {
+                video.currentTime = video.currentTime + 5;
+            }
+
+            volume.onchange = function () {
+                video.volume = this.value;
+            }
+            var vol;
+            mute.onclick = function () {
+
+                if (!video.muted) {
+                    vol = volume.value;
+                }
+
+                video.muted = !video.muted;
+                if (!video.muted) {
+                    volume.value = vol;
+                    mute.innerText = "Mute";
+                }
+                else {
+                    volume.value = 0;
+                    mute.innerText = "UnMute";
+                }
+
+            }
+
+            video.addEventListener("timeupdate", function () {
+
+                remainingTime.innerText = formatTime(video.currentTime);
+                scrubber.value = video.currentTime;
+            });
+            playbackRate.onchange = function () {
+
+                video.playbackRate = this.value;
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <video id="video" poster="wallpaper_21.jpg" height="200px">
+        <source src="VID_20140304_183804.mp4" type="video/mp4" />
+    </video>
+    <div>
+        <input type="range" id="scrubber" min="0" max="30" value="0" step="1" />
+        <span id="remainingTime">0:00</span>
+        <span id="totalTime">0:16</span>
+    </div>
+    <div>
+        <button class="btn" id="playPause">Play</button>
+        <button class="btn" id="stop">Stop</button>
+        <button class="btn" id="begin">&lt;&lt;</button>
+        <button class="btn" id="rewind">&lt;</button>
+        <button class="btn" id="fastForward">&gt;</button>
+        <button class="btn" id="end">&gt;&gt;</button>
+    </div>
+    <div>
+        <input type="range" id="volume" min="0" step="0.1" max="1" />
+        <button class="btn" id="mute">Mute</button>
+    </div>
+    <div>
+        Speed
+        <input type="range" id="playbackRate" min="1" value="1" step="1" max="4" />
+
+    </div>
+
+    <div class="adv">
+        Click here to win an iPhone
+    </div>
+</body>
+</html>

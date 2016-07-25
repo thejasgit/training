@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html manifest="offline.appcache">
+<head>
+    
+    <title>Home</title>
+    <script src="app.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="app.css">
+    <script>
+        
+        var canvas,ctx;
+    function fnDraw(){
+     canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+       var score = [100,30,22,98,70,32];
+        var width = 50, curX = 20;
+        
+        for(var i =0; i< score.length; i++){
+        var h = score[i];
+            var y =canvas.height - h;
+            
+            if(h<=30){
+            ctx.fillStyle = "red";
+            } else if(h>30 && h <=70){
+            ctx.fillStyle = "yellow";
+            }
+            else {
+            ctx.fillStyle = "green";
+            }
+            ctx.fillRect(curX,y,width,h);
+            ctx.beginPath();
+            ctx.arc(curX+width/2,y,10,0,2*Math.PI);
+            ctx.fillStyle = "blue";
+            ctx.fill();
+            ctx.closePath();
+            curX = curX+width+10;
+        }
+       
+    }
+        
+        function fnReset(){
+        canvas.width = canvas.width;
+        
+        }
+   
+    </script>
+    </head>
+    <body>
+    <button onClick="fnDraw()">Draw</button>
+         <button onClick="fnReset()">Reset</button>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    </body>
+</html>

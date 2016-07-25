@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Routing App</title>
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+    <script>
+        var myApp = angular.module('myApp', ['ngRoute']);
+        myApp.config(function($routeProvider){
+            $routeProvider
+                .when('/products', {
+                    /*template : '<h2>Products</h2>'*/
+                    templateUrl : 'templates/productsTemplate.html',
+                    controller : 'productsController'
+                })
+                .when('/products/:id', {
+                    templateUrl : 'templates/productInfoTemplate.html',
+                    controller : 'productInfoController'
+                })
+                .when('/customers', {
+                    /*template : '<h2>Customers</h2>'*/
+                    templateUrl : 'templates/customersTemplate.html'
+                })
+                .otherwise({
+                    redirectTo : '/products'
+                });
+        });
+
+        myApp.service("productsService", function(){
+            this.getAll = function(){
+                return [
+                    {id: 1, name : "Pen", cost : 5, units : 100, desc : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit omnis sunt quam, atque tempore perferendis iusto voluptatum deleniti repellendus laboriosam delectus vitae ad, cupiditate reiciendis enim reprehenderit sint sequi fuga.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab hic magni, earum aut a obcaecati velit accusamus facilis sunt unde? Aut cum incidunt culpa consectetur, voluptas placeat omnis modi libero!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia doloribus eaque sequi inventore! Commodi earum velit sequi est vero id, deserunt alias ad explicabo, sapiente eligendi esse rem dolore rerum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure assumenda reprehenderit, sit eius et beatae eum laudantium tempora aperiam autem dicta saepe nihil. Eligendi repellat necessitatibus, deleniti libero accusantium! Reiciendis"},
+                    {id: 2, name : "Hen", cost : 100, units : 200, desc : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit omnis sunt quam, atque tempore perferendis iusto voluptatum deleniti repellendus laboriosam delectus vitae ad, cupiditate reiciendis enim reprehenderit sint sequi fuga.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab hic magni, earum aut a obcaecati velit accusamus facilis sunt unde? Aut cum incidunt culpa consectetur, voluptas placeat omnis modi libero!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia doloribus eaque sequi inventore! Commodi earum velit sequi est vero id, deserunt alias ad explicabo, sapiente eligendi esse rem dolore rerum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure assumenda reprehenderit, sit eius et beatae eum laudantium tempora aperiam autem dicta saepe nihil. Eligendi repellat necessitatibus, deleniti libero accusantium! Reiciendis"},
+                    {id: 3, name : "Ten", cost : 10, units : 10, desc : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit omnis sunt quam, atque tempore perferendis iusto voluptatum deleniti repellendus laboriosam delectus vitae ad, cupiditate reiciendis enim reprehenderit sint sequi fuga.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab hic magni, earum aut a obcaecati velit accusamus facilis sunt unde? Aut cum incidunt culpa consectetur, voluptas placeat omnis modi libero!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia doloribus eaque sequi inventore! Commodi earum velit sequi est vero id, deserunt alias ad explicabo, sapiente eligendi esse rem dolore rerum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure assumenda reprehenderit, sit eius et beatae eum laudantium tempora aperiam autem dicta saepe nihil. Eligendi repellat necessitatibus, deleniti libero accusantium! Reiciendis"},
+                    {id: 4, name : "Den", cost : 1000, units : 10, desc : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit omnis sunt quam, atque tempore perferendis iusto voluptatum deleniti repellendus laboriosam delectus vitae ad, cupiditate reiciendis enim reprehenderit sint sequi fuga.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab hic magni, earum aut a obcaecati velit accusamus facilis sunt unde? Aut cum incidunt culpa consectetur, voluptas placeat omnis modi libero!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia doloribus eaque sequi inventore! Commodi earum velit sequi est vero id, deserunt alias ad explicabo, sapiente eligendi esse rem dolore rerum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure assumenda reprehenderit, sit eius et beatae eum laudantium tempora aperiam autem dicta saepe nihil. Eligendi repellat necessitatibus, deleniti libero accusantium! Reiciendis"}
+                ]
+            };
+            this.get = function(id){
+                return this.getAll().filter(function(product){
+                    return product.id === id;
+                })[0];
+            }
+        });
+
+        myApp.controller("productsController", function($scope, productsService){
+            $scope.products = productsService.getAll();
+        })
+
+        myApp.controller('productInfoController', function($scope, productsService, $routeParams){
+            var productId = parseInt($routeParams.id);
+            $scope.product = productsService.get(productId);
+        })
+    </script>
+</head>
+<body ng-app="myApp">
+    <h1>Flopkart</h1>
+    <div>
+        <a href="#/products">Products</a>
+        <a href="#/customers">Customers</a>
+    </div>
+    <hr>
+    <div ng-view></div>
+</body>
+</html>
